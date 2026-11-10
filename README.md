@@ -89,6 +89,9 @@ click **Open Anyway** in **System Settings › Privacy & Security**, or on macOS
 right-click Melodom and choose **Open**. Then, in the Dashboard, tick **Start from the demo
 session** and click **Create**.
 
+What changed in each release is in [CHANGELOG.md](CHANGELOG.md); Melodom also shows it after it
+updates itself, and in **Help › What's New in Melodom**.
+
 Press <kbd>Space</kbd> to play, <kbd>⌘</kbd><kbd>=</kbd> to switch between Edit and Mix, and open
 **Setup › Keyboard Shortcuts** for the rest.
 

@@ -1,0 +1,246 @@
+# Changelog
+
+What changed in each Melodom release, newest first. Each release's downloads and checksums are on its page under Releases.
+
+## 0.13.0 (2026-11-10)
+
+- **Soundbase, after Pro Tools' sample browser:**
+  - Window › New Workspace › Soundbase (Option+Control+I) searches all of your Sound Libraries at once, as "Workspace: Search In Sound Libraries", with the number of results.
+  - The Tags pane shows every tag as a button, most-used first. Click a tag to include it, Option-click to leave it out; chosen tags show as chips in the Search Tags field, and Esc clears them. Control+Option+Command+T shows or hides the pane, and the heart (Control+Option+Command+F) shows only your favourites.
+  - Tempo, Key, Time Signature, Loop, Favorite, Rating and Tags columns, read from WAV, AIFF and MIDI files as Pro Tools reads them, so Pro Tools' own loops show their tags, keys and tempos. Loops show their length in bars and beats.
+  - Assign Tags (Option+Control+T, right-click › Tags…, or a click in the Tags cell) adds and removes tags, suggests the ones you already use, and sets the heart, 0–5 stars and Loop (Control+F, Control+0–5 and Control+O while it's open). The Key, Time Signature, Loop, Rating and Favorite cells edit with a click. An edit applies to every picked file, and tagging several files asks first. Right-click › Recently Used Tags adds a tag you used lately.
+  - Tags, key, time signature and loop are written into the file where Pro Tools reads them, without moving its audio. Favourites and ratings stay in Melodom's own settings, as Pro Tools keeps them in its database. A file Melodom can't tag safely, such as a read-only one, is left alone and the reason shown.
+  - Not yet: the waveform column, Preview in Context, catalogs and Advanced Search.
+- **The Workspace:**
+  - A Locations pane with Sound Libraries: Pro Tools' own Sound Libraries is linked in automatically, and any folder can be added from its right-click.
+  - Columns sort from their titles (click again to reverse, Shift-click for up to four levels) and show or hide from a title's right-click or Option-click.
+- **What's new, in the app:** after Melodom updates itself, it shows once what changed in the new version, and Help › What's New in Melodom shows every release's changes any time. From the next update on, the update offer also lists the new version's changes before you click Restart Now.
+- **More like Pro Tools:**
+  - Left and Right arrows scroll the Edit window to the selection's start or end, or to the insertion point.
+  - F6+F7 and F7+F8 choose the Smart Tool, and Command+6 and Command+7 the Pencil and the Smart Tool.
+  - Option+Shift+E and an Option-click cancel Zoom Toggle and keep the view, and a zoom key held down keeps zooming.
+  - The Sub counter has Pro Tools' Sub Counter selector, and setting the Main counter to the Sub counter's format switches the two.
+  - Control+N turns Insertion Follows Playback on and off.
+  - A new send opens its Send window.
+  - Double-clicking a selected track's colour strip keeps the selection for the Color Palette, and a track name that's cut off shows whole when you point at it.
+  - Link Track and Edit Selection has a toolbar icon of its own.
+  - Timecode and Feet+Frames rulers, grids and Slip lines mark the counter's whole values and line up with the counters; drop-frame seconds land on labelled seconds.
+  - Insert and Cut Time move key changes and memory locations that span the edit along, and Cut Time keeps what's left of a location that reaches past the cut. Tempo Operations › Constant at an insertion point sets the tempo there.
+  - WAV bounces carry their timecode position as a Broadcast Wave time stamp, so they spot back in place.
+- **Audio inputs:** a chosen input that's missing or unplugged is named, and Melodom switches to it once it's back, as it already did for outputs.
+- **Faster:**
+  - Sessions with many tempo changes, such as tempo curves or imported MIDI files, no longer slow MIDI playback or editing.
+  - Dense clip gain lines no longer cause dropouts, and Clip Gain to Volume, Volume to Clip Gain and Coalesce no longer hang on them.
+  - Plug-ins with many automated parameters cost less on the audio thread.
+  - Large sessions stay smoother while they have unsaved changes: a fader ride no longer copies the whole session.
+  - Remove Duplicate Notes stays quick on clips crowded with controller events, and the Score Editor keeps up with dense tracks in "allow note overlap" mode.
+  - The Edit window works out its grid lines once a frame for all tracks.
+- **Changed:**
+  - Levels of Undo runs from 1 to 64, as in Pro Tools, and lowering it takes effect at once. A higher value saved by an earlier release becomes 64.
+  - Four names change, everywhere they're shown: Beat Detective is now Beat Analysis, QuickPunch is Punch Recording, Sibelius in File › Export and File › Send To is MusicXML, and Lo-Fi is Bit Crusher. Sessions and presets are unchanged.
+  - Export MIDI leaves out MIDI tracks their Mute button mutes, as Pro Tools does, and writes what trimmed clips play: held notes stop at a clip's end, and a sustain pedal still down there is released.
+  - Limits that keep a damaged or hostile file from crashing Melodom: a session file over 1 GiB isn't opened or saved, a MIDI file with more than 10,000 tempo or key changes or more than 512 tracks is refused before the session changes, a score past a million notes and rests is refused instead of running out of memory, and a session bundle whose files share their data is refused.
+- **Fixes:**
+  - Pasting, duplicating, repeating or looping a crossfade keeps it whole, instead of cutting the first clip and fading the second in from silence.
+  - Moving or copying clips or notes past the session's start, or past the highest or lowest pitch, keeps their spacing and chords. Quantize to Grid on a clip already on the grid keeps its crossfade, and a drag or trim that doesn't move no longer snaps in Grid mode.
+  - In Shuffle, deleting clips picked with the Object Grabber closes up the gaps they leave.
+  - Loading a track preset no longer turns input monitoring on or off.
+  - Typed Min:Secs positions are no longer read as timecode, and a skipped drop-frame label goes to the next real frame. "1/8 dotted" is understood as a grid value, Separate On Grid stops past 10,000 lines, and Clips/Markers ignores hidden tracks.
+  - Redefine Current Timecode and new MIDI notes stay within the session.
+  - Escape or Cancel pressed together with Return cancels a dialog.
+  - Scores keep every note past a bar shorter than a 32nd, and their MusicXML and SVG leave out characters XML forbids.
+  - Broadcast Wave text is cut at whole characters, and MIDI file track and marker names no longer carry invisible characters.
+  - Session Info as Text counts only audio clips as audio clips. Import Clip Groups takes audio names with ".." in them and refuses an audio path from outside the session.
+  - DC Offset Removal fully removes the offset even next to broken samples, and very loud floating-point files draw their waveforms.
+  - Autosave writes one copy of audio that several clips share, not one for each.
+  - `.scraft` sessions whose grid is Timecode, Feet+Frames or a whole note open.
+- **For agents and `melodom-cli`:**
+  - A command's own error no longer reads as a lost connection, and `transport.play` with `from` plays from that point whatever the selection, leaving a playing loop.
+  - Soundbase's tags, favourites and ratings can be set by command: `file.set_tags`, `file.set_favorite` and `file.set_rating`.
+  - `melodom-cli script --keep-going` exits with an error when a command failed, logged warnings are printed, and `convert` keeps a Broadcast WAV's time stamp.
+
+## 0.12.0 (2026-11-08)
+
+- **Pro Tools sessions open in Melodom:**
+  - File › Open Session opens a Pro Tools session (`.ptx`, `.ptf`) as a new untitled session. Import Session Data, drops, the Workspace and `melodom-cli` take them too, behind a progress window.
+  - The session brings its tracks of every kind, audio clips over their media, clip mutes, markers, tempo, meter and key; fades and crossfades in Pro Tools' shapes, clip gain, alternate playlists, folders, track colours, comments, and hidden and inactive tracks.
+  - Its mixer comes too: faders, pans, mutes and solos, inputs, outputs and sends through buses and I/O Setup paths, mix and edit groups, and volume, mute, pan and send automation.
+  - Plug-ins come as well. Avid's EQ III, Dynamics III, D-Verb, Mod Delay III and Channel Strip become Melodom's own: EQ III with most of its settings, the Dynamics III compressor with its threshold, attack, release and gain, the rest at their defaults. Others come as the same plug-in installed here as an AU, VST3 or CLAP plug-in, at its defaults. Bypassed and inactive inserts stay so.
+  - Window › Import Report lists what didn't come over, such as MIDI notes, most plug-in settings, plug-in and trim automation, and it's kept with the session.
+- **EQ and dynamics after Pro Tools' EQ III and Dynamics III:**
+  - EQ 7-Band, EQ 1-Band, Compressor/Limiter, Expander/Gate and De-Esser are in the insert menus and Setup › Plug-in Manager again, with Pro Tools' controls, ranges and factory defaults, and windows like Pro Tools': the EQ's graph with draggable band dots, and Dynamics III's level meters with a draggable threshold arrow, gain-reduction meter and graphs.
+  - Control+Shift-drag an EQ band's dot or knob to hear that band alone. The dynamics have side-chain filters with Listen, and the gate has Look Ahead.
+  - They're in the AudioSuite menu too, with the same panels. There, their meters stay still, there's no Band-Pass or Listen, and the Preset column doesn't list their presets yet.
+- **Channel Strip, after Pro Tools':** input trim and phase; Expander/Gate with knee and hysteresis; Compressor/Limiter with LMTR and negative ratios; a side-chain with Key, Avg and filters; four EQ bands and two filters in any FX Chain order, with Volume PRE or POST; Listen for each band, filter and the side-chain. On inserts and in AudioSuite.
+- **Reverb and Mod Delay, after D-Verb and Mod Delay III:**
+  - Reverb has D-Verb's seven spaces in three sizes, which load its presets, an endless Decay, Pre-Delay, HF Cut, Diffusion and an LP Filter. A new Reverb starts as a 2.2 s small Hall.
+  - Mod Delay has up to 5 s on each side, note values with dot, triplet and Groove at the session's tempo, Link, and each side's own phase invert and gain. A new Mod Delay starts all wet, with no feedback and the sides unlinked.
+  - Both have Pro Tools-style windows, on inserts and in AudioSuite.
+- **MIDI into effects:** effects that take MIDI, such as Auto-Tune and vocoders, are listed in a MIDI track's MIDI Output selector, so the track can play them, as Pro Tools' Individual Targets do.
+- **Changed:**
+  - Older sessions' EQs, dynamics and Channel Strips sound as before, except for values beyond Pro Tools' ranges, which now play at its limits: EQ 7-Band shelves beyond ±12 dB and peaks beyond ±18 dB, an HPF below 20 Hz, LF above 500 Hz, LMF above 1 kHz and HF below 1.8 kHz; an Expander/Gate's threshold below −60 dB and its Hold or Release below 5 ms; a Channel Strip's Output above +12 dB, HPF below 20 Hz and ratios above 20:1 (LMTR above 40:1).
+  - An older EQ 1-Band's output gain is now part of its input gain, automation and presets included. It sounds the same.
+  - Room Reverb is now Reverb. Older Room and Plate Reverbs play as before, as Room 1 and Plate; Plate Reverb is no longer listed, as it's Reverb's Plate space.
+  - Compressor/Limiter's and Expander/Gate's attack reads in µs under 1 ms, as in Pro Tools.
+  - The new plug-ins' sound hasn't been compared with Pro Tools' yet.
+- **Fixes:**
+  - Melodom's own AudioSuite processes follow the session's tempo where the clip starts; they assumed 120 bpm.
+
+## 0.11.1 (2026-11-05)
+
+- **Fixes:**
+  - Copy-protected plug-ins that change their own code as they load, such as Neural DSP's Archetype plug-ins, no longer crash Melodom when a session that uses them opens or when you insert one.
+  - In the Dark theme, the MIDI Editor's bar lines are lighter than the note rows and the grid lines, as in Pro Tools.
+
+## 0.11.0 (2026-11-05)
+
+- **Melodom updates itself:**
+  - From this release on, Melodom looks for a newer release when it starts, downloads it in the background and checks its signature. Restart Now installs it at once; Later installs it when you quit. The offer waits until playback, recording and renders have stopped.
+  - Setup › Preferences › Operation › Software Update turns the check off, and Melodom › Check for Updates… checks by hand.
+  - It sends nothing about you: it only asks GitHub for the latest release.
+  - Install 0.11.0 itself by hand, as before: the first update that installs itself will be the release after it. A copy that can't replace itself, such as one run from the DMG, offers the release page instead.
+  - After an update installs itself, macOS may ask again for access to the microphone: allow it as before.
+- **The MIDI Editor, the Pro Tools way:**
+  - It shows whole tracks, every clip from the session start, and opens zoomed to the selected clips. The MIDI and Instrument tracks selected in the Edit window show together, notes in their track's colour (or Color Code By Velocity), each sounding on its own track. The Track Edit selector picks the track the Pencil draws on, and drawing in empty bars makes a clip there.
+  - The MIDI Editor Window menu shows its own Track List and Groups List, and it has its own Timebase and Conductor rulers: Timecode, Feet+Frames, Samples, Tempo, Meter, Key, Chords and Markers.
+  - Open in New MIDI Editor opens more MIDI Editor windows. The targeted one follows the Edit selection while the others keep their clips and tracks; Control+= cycles through them, and Window › MIDI Editor lists them.
+  - Controller lanes run the length of the track, one per controller for each track shown, and an Instrument track's automation (volume, mute, pan, sends and plug-in parameters) has lanes there too, edited as in the Edit window.
+  - The notes and every lane have Pro Tools' right-click menus. Separate and Consolidate, there or in the Edit menu, work on picked notes.
+  - Default Note Duration and Default Note On Velocity, in the MIDI Editor's toolbar and the Edit window, set the notes the Pencil draws.
+  - Pasted notes keep the notes already there, replacing only those of their own pitch, so hi-hats pasted over a kick and snare keep them; Paste Special › Merge MIDI keeps every note.
+- **MIDI tracks play instruments:**
+  - A MIDI track's Output selector is its MIDI Output, as in Pro Tools: it plays one or several Instrument tracks. A right-click or Control-click adds or takes off one, Option-click sets every MIDI track and Option+Shift-click the selected ones. An Instrument track plays up to 16 MIDI tracks besides its own clips, with Mute, Solo, mute automation, note chasing and MIDI Thru acting on each, in Bounce Mix, Freeze, Commit and Track Bounce too.
+  - Instruments also go on Audio tracks, Aux Inputs and Routing Folders, and the MIDI Output menu's Individual Targets picks one by its insert: two instruments on one Aux Input each play their own MIDI tracks, live and in every render.
+  - Track › Commit on MIDI tracks renders their notes alone through the Instrument tracks they play, onto a new audio track for each.
+  - MIDI clips dragged with the Grabber from an Instrument track onto an audio track commit there: their audio lands where you drop them, and the MIDI clips stay.
+- **MIDI Operations, as in Pro Tools:**
+  - Quantize has Pro Tools' options: Note On, Note Off and Preserve Note Duration, every grid from 1/1 to 1/64 with dotted, triplet and tuplet values, Offset Grid By, Randomize, Swing up to 300% and Include/Exclude Within, for MIDI notes, audio clips and Elastic Audio events. A right-click on the toolbar's Q opens it.
+  - Groove Quantize puts notes, audio clips and Elastic Audio events on a groove's feel, with Timing, Duration, Velocity and Pre-Quantize. Beat Detective's Groove Template Extraction takes a groove from audio hits or MIDI notes, to the Groove Clipboard or the Grooves folder. Grooves are in Melodom's own format: Pro Tools' DigiGroove files don't open.
+  - Change Velocity, Change Duration, Transpose (In Key too, by the Key Signature ruler) and Select/Split Notes (by pitch, the top or bottom notes of chords, velocity, duration or place in the bar, onto new tracks too) work as Pro Tools' pages do, and keep their settings with the session.
+  - Step Input (Event › MIDI Operations › Step Input) enters notes a step at a time from a MIDI keyboard or the MIDI Keyboard window, with Pro Tools' step values, tuplets, note length and velocity, Undo, Next and Redo Step, and the numeric keypad's shortcuts.
+- **Score Editor notation, as in Pro Tools:** rests, ties and beams, key signatures with notes spelled by the key, accidentals and meter changes; Grand Staff, Treble, Bass, Alto and Tenor clefs; display transposition for transposing instruments; and Display Quantization, Straighten Swing and Allow Note Overlap for each track or all of them. The Score Editor gains Pro Tools' Track List, zoom and Notation Display Track Settings, and File › Print Score and File › Send To › Sibelius use the same notation.
+- **Elastic Audio plays in real time:**
+  - Elastic Audio tracks play their warps live, as Pro Tools' Real-Time Processing does, with no files to render. Rendered Processing renders as before (High Quality only renders). Both are on the Elastic Audio selector, whose light is green in real time, and Cmd+Control-click switches between them.
+  - Turning Elastic Audio off a track asks Cancel, Revert or Commit, as in Pro Tools. Commit, and a clip moved, copied or pasted onto a track without Elastic Audio, render what the clip plays into a new file with up to 5 seconds of handles.
+  - Clips moved, copied or pasted onto another Elastic Audio track play as that track stretches. Along tick-based tracks, drags, Paste, Duplicate, Repeat, Nudge, Shift, Spot, Quantize, Beat Detective's Clip Conform and the Separation Grabber keep clips on their bars and beats (a paste after a tempo change too), and their automation goes with them under Automation Follows Edit.
+  - Quantize's Audio Clips moves audio clips to the grid on any audio track. Restore Performance takes Quantize's moves back, even after a save, and Flatten Performance keeps them.
+  - On the tracks of an active Edit Group, a Warp or Event marker edit lands on the matching clips of the others. A live stretch that clips turns the track's Elastic Audio selector red, and a rendered one shows the Clipping indicator on the clip.
+  - TCE on an Elastic Audio track sets the clip's TCE Factor instead of rendering a file, Transpose adds semitones and cents to clips' Elastic Pitch, and Tab steps through Warp and Event markers.
+  - File › Import › Audio's Conform to Session Tempo previews files at the session's tempo and conforms them onto new tracks.
+- **Transport and recording:**
+  - Record Safe: Cmd-click a Record key (Cmd+Option-click for every track, Cmd+Option+Shift-click for the selected ones), and arming passes the track by.
+  - Rewind and Fast Forward step by the Main Time Scale on a click and scan while held, with Audio During Fast Forward/Rewind, Latch Forward/Rewind and Custom FF/REW Speed in Setup › Preferences › Operation.
+  - The Scrubber plays the audio as you drag, forward or back at any speed, on one or two tracks: Cmd for finer, Option to shuttle, Shift to extend the selection. The numeric keypad has Pro Tools' Classic and Transport modes, and Shuttle Lock.
+  - With Wait for Note on, Record waits for the first note you play, which lands at the start of the record range. Event › Retrospective Record (Option+Shift+Z) puts down what you played along with playback without recording.
+  - Track › Set Record Tracks to Input Only, and Option+K, switch the record-enabled audio tracks between Input Only and Auto Input, and Mute Record-Armed Tracks While Stopped (Preferences › Operation) keeps those in Auto Input quiet while stopped.
+  - Setup › MIDI › MIDI Beat Clock sends clock and song position to the MIDI outputs you tick, following the tempo map, with an offset for each.
+  - Unplugging the audio interface stops the transport, keeping the take, and another output opens at once; Melodom goes back to the interface when it returns and playback has stopped.
+- **VCA Masters, the Pro Tools way:**
+  - A VCA Master controls the Mix group assigned to it, in its strip's Group Assignment selector or the Group dialog's VCA pop-up, nested VCA Masters too. Older sessions open with each VCA Master's tracks in a Mix group of their own.
+  - The tracks' faders and level readouts show the level their VCA Masters give them, and a VCA Master's mute shows on their Mute keys as an implied mute. Its Record and Input keys arm and monitor the tracks under it.
+  - Deleting a VCA Master, or taking tracks out of its group, leaves its level and mute in them, or asks first, as Preferences › Mixing › Coalesce when Removing Members from VCA Group says. Track › Coalesce VCA Controller Automation with Control held acts on the Edit selection only, and Standard VCA Logic for Group Attributes is in Preferences › Mixing too.
+  - View › Automation › Composite Playlist draws what the mix plays, trim and VCA Masters included, on the volume, mute and send level lanes, and Trim Playlist shows the trim automation on the volume and send level lanes, in yellow.
+  - As in Pro Tools, a VCA Master takes no inserts or sends: plug-ins an earlier release put on one don't load.
+- **Folders:**
+  - Basic Folders, as in Pro Tools, only hold tracks: their Solo and Mute act on every track inside, and their lights show any of them playing audio or MIDI.
+  - Track › Move to New Folder asks for the folder's type, format, timebase and name, and whether its tracks are routed to it.
+  - A folder's Overview shows its tracks' clips as blocks, a row for each track. A selection there edits every track in the folder, open or closed: Cut, Copy, Paste, Clear, Nudge, Mute, fades and Trim. Extend Edit Up/Down to Members are on Option+Control+Shift+P and ;.
+- **Tracks in the Edit and Mix windows:**
+  - Every track height, Micro to Extreme, is laid out as in Pro Tools 2026. Micro and Mini rows keep the Record, Input, Solo and Mute keys and a meter beside the name, with a round key's menu for the playlist, timebase, height and view, and the smaller rows show inserts and sends by their initials.
+  - The Record, Input, Solo and Mute keys look like Pro Tools', and an armed Record key flashes until recording starts.
+  - Window › UI Customization colours tracks as current Pro Tools does: Header Saturation and Brightness tint the Edit window's track headers and the Mix strips in the track's colour, and Name tints the name plates, for all tracks or each type, with five Quick Presets. It replaces the Color Palette's Track Tint, and a tint you had set carries over.
+  - Automation lines take their track's colour; Trim automation stays yellow.
+  - Grid lines follow the edit mode, as in Pro Tools: in Slip, Shuffle and Spot, only lines at the main ruler's labels, in the Edit window and the MIDI Editor alike.
+- **Tracks, clips and bounces:**
+  - Track › Duplicate (Option+Shift+D) opens Pro Tools' Duplicate Tracks dialog: how many copies, and whether they take the playlists, automation, inserts, sends, markers, comments and group assignments.
+  - The Output and Send selectors' new track… makes an Aux Input, Audio or Instrument track fed from a new bus named after it, and routes the output or send there, in one step.
+  - Track › Bounce opens Pro Tools' Track Bounce dialog: WAV, AIFF or FLAC, interleaved or multiple mono, bit depth, sample rate, rendering volume and pan automation, and Import After Bounce. Bounce Mix gains Multiple Mono and Import After Bounce too.
+  - Clip › Rename opens Pro Tools' Name dialog with the clip's info, and can rename the clip's file on disk too. Clip List › Clear opens Clear Selected, whose Delete moves the files nothing else uses to the Trash (and clears Undo).
+  - Edit › Shift takes its amount in Bars|Beats, Min:Secs, Timecode, Feet+Frames or Samples, and Event › Identify Beat sets a start and an end time signature, as in Pro Tools.
+- **Sessions and files:**
+  - Session templates and track presets, as in Pro Tools: File › Save As Template… and Track › Save Track Preset… keep them in categories, and the Dashboard's Create From Template, the New Tracks dialog's Track Preset type and the track menu's Recall Track Preset use them.
+  - Window › Workspace is Pro Tools' Workspace browser: each file's length, format, sample rate, bit depth and channels, search with subfolders, preview, and imports by drag or double-click.
+  - When files are missing, Manually and Automatically Find & Relink look for them, as in Pro Tools, and the Relink window shows the candidates to link. Relink Offline, in the Workspace's Browser menu, does it later.
+  - File › Save Session Copy In opens Pro Tools' Save Copy In dialog: another sample rate, bit depth (with noise-shaped dither) or file type, the audio and video files, Main Playlist Only and Preserve Folder Hierarchy, behind a progress window.
+  - The Metadata Inspector keeps the session's Title, Artist(s), Contributor(s) and Location.
+- **Big sessions and long jobs:**
+  - WAV and AIFF files at another sample rate play from disk, converted as they play, instead of being converted into memory as the session opens, and even hundreds of such tracks start playing without a gap.
+  - AudioSuite, Elastic Audio renders and Track Bounce go through the audio a block at a time instead of holding it whole in memory, and Track Bounce no longer stops at 16 GB.
+  - Opening or importing an AAF, importing audio with Copy, and Prepare DPE Tracks or AudioSuite's own tools on over a minute of stereo run behind a progress window with Cancel instead of freezing the window. AudioSuite's bar moves within each file, and Cancel stops part-way. The autosave every two minutes no longer pauses the window.
+  - Less work for the computer: soloing in sessions with many folders, long MIDI clips over tempo changes, drawing the Solo and Mute keys, and scrolling waveforms zoomed in.
+- **Windows, dialogs and messages:**
+  - What an action says shows for a moment at the foot of the window in front: Edit, Mix or the MIDI Editor. An error stays, with a warning mark, until your next click or key, instead of fading in the status line.
+  - Undo History, Memory Locations, Window Configuration List, Disk Usage and MIDI Track Offsets are Pro Tools' tables: a click in Undo History undoes or redoes up to that step, and a memory location recalls with a click and renames or deletes with a right-click.
+  - The Transport window has the toolbar's keys, the Main Counter, Expanded Transport and MIDI Controls, the Big Counter shows on the Main Counter's face, the Automation window is Pro Tools' narrow strip, and the MIDI Keyboard window is one octave with octave and velocity keys.
+  - Dialogs and floating windows look and behave like Pro Tools': dialogs are modal, the AudioSuite windows have its Selection and Preset columns with Target at the right, and Keyboard Shortcuts searches by key. Save As and Import MIDI use the macOS file panel.
+  - Setup › Appearance's settings are in Setup › Preferences › Display, which gains Interface Scale: Automatic, or 75 to 150%.
+- **Remote Control for scripts and AI agents:** with Setup › Preferences › Operation › Remote Control › Let Scripts and AI Agents Control Melodom on (off by default; it takes effect at the next launch), an AI assistant connected through `melodom-cli mcp --connect auto` can work the open app as you would: every window, plug-in windows included, its buttons, menus and dialogs. It can also read the meters and messages, measure each track's levels and the mix's loudness, and follow or cancel bounces and renders.
+- **Fixes:**
+  - A Master Fader's Trim fader now changes what you hear (the mix ignored it), so a session with a trimmed Master Fader plays at another level.
+  - A send dragged to another slot keeps feeding its bus instead of going silent.
+  - Delete on controller events picked in the MIDI Editor no longer deletes the clips selected in the Edit window too.
+  - Crash recovery keeps the audio the crashed session held only in memory, so Save As works and a second crash loses nothing.
+  - Bounce Mix, Send to FMOD Studio, Commit, Track Bounce and Freeze stop and name a plug-in that stopped while they rendered, instead of leaving its part silent. A plug-in left silent because its process stayed busy says so, and Restart Plug-ins tries it again. A plug-in that refused its saved settings keeps them when you open its window, and a force quit while Melodom waits on a plug-in no longer blames that plug-in for a crash.
+  - Import Session Data from a session at another sample rate keeps each file's Original Time Stamp.
+  - In the Warp and Analysis views, the Smart Tool's Control-click and double-click in a clip's lower half add Warp and Event markers, as the Grabber's do, and Warp markers draw as a thin line.
+  - I/O Setup's OK no longer writes the old session's routing into one opened since. A bug in a menu command or a dropped file autosaves and leaves Melodom running, and one in the Mix, MIDI Editor or Video window no longer stops Quit or skips the Save question.
+
+## 0.10.0 (2026-10-29)
+
+- **AudioSuite, the Pro Tools way:**
+  - The AudioSuite window is laid out like Pro Tools': clips from the playlist or the Clip List, Use In Playlist, a file per clip or one continuous file, clip by clip or the entire selection, and handles of up to a minute or the whole file. Preview plays what the process makes of the first clip, with Bypass, its own level and a meter.
+  - Your own Audio Units, VST3 and CLAP effects run as AudioSuite processes. The AudioSuite menu and the window's selector, with Search, list them by category. The plug-in's window shows inside the AudioSuite window, Preview plays it live as you set it, and Render works behind a progress window with Cancel, letting tails ring on into the space after a clip.
+  - Reverse runs a reverb or delay backwards, its tail before the clip. Channel Mode runs a plug-in on stereo pairs, two mono tracks as one stereo track, or each channel alone. Key Input lets a plug-in with a side-chain hear another track, such as a gate opened by a kick.
+  - A plug-in's presets keep its own state, with Pro Tools' Settings menu, the Librarian, − and +, and Compare. Several AudioSuite windows can be open, each with its own process and settings, and the Target button picks the one the AudioSuite menu uses.
+  - AudioSuite's own tools have Pro Tools' controls: Normalize to a peak or RMS level, each channel alone or all together; Gain with Analyze; the Signal Generator's six signals; Pitch Shift's coarse and fine pitch with time correction; Time Stretch by an Elastic Audio algorithm or Classic; and a new Tape Stop (Pro Tools' Vari-Fi).
+- **Elastic Audio, the Pro Tools way:**
+  - Each clip has its own Elastic Properties (Clip › Elastic Properties): Input Gain, Event Sensitivity, and Pitch Shift of up to two octaves on Polyphonic, Rhythmic and High Quality tracks.
+  - The Warp view stretches audio by hand: drag Event and Warp markers Telescoping, Accordion, Range or one event at a time. The Analysis view adds, moves, promotes and deletes Event markers.
+  - Polyphonic, Rhythmic, Monophonic, Varispeed and High Quality (in X-Form's place) each stretch their own way, with the Elastic Audio Plug-in window's controls, and clips played at another speed sound cleaner.
+  - Quantize's Elastic Audio Events puts the audio's attacks on the grid, warping the audio between them.
+  - On tick-based Elastic Audio tracks the audio follows tempo changes, keeping its bars and beats. Conform to Tempo keeps the pitch, from a Source Tempo or Source Length you type, the tempo an ACID file or Apple Loop gives, or the one Elastic Audio analysis finds.
+  - Imports conform as Setup › Preferences › Processing › Drag and Drop From Desktop Conforms to Session Tempo says, and the first file with a tempo in an empty session offers its tempo.
+- **Send to FMOD Studio:**
+  - A track's right-click menu sends it, or the selected tracks, as an event each. A folder or Aux Input gets an event track for each track it mixes.
+  - The Send dialog's Events: One for All Tracks puts them in one event, and None (Assets Only) sends only their files, in one folder and over one stretch of time, so layers stay lined up.
+  - Each file rings out until its reverbs, delays and instruments fall silent; untick Let effect tails ring out for loops.
+  - Sending again updates the assets and events FMOD Studio has, wherever you've moved or renamed them there, and keeps what you arranged in an event. The send after each save only refreshes the files FMOD already has.
+- **Folders:** a folder's tracks sit indented in the Edit window and the Track List, and framed in its colour in the Mix window. Shift+F or a folder's triangle opens and closes it, and tracks dragged in any of the three windows, the selected ones together, go into a folder when let go among its tracks or onto it.
+- **Inactive tracks:** they show as in Pro Tools, with italic names, a dark grey header, dimmed clips and greyed-out controls, and inactive inserts are dark grey. A folder made inactive takes its tracks along, an inactive VCA master leaves its members alone, the track menus gain Hide and Make Inactive, and Cmd+Ctrl-click on a Mix strip's Track Type indicator makes a track inactive or active.
+- **Editing:**
+  - Grabber and Smart Tool drags move every clip the selection holds, and an Option-drag copies them, onto other tracks and playlist lanes too.
+  - With Automation Follows Edit, the automation under clips moved in Slip, Grid and Spot goes with them, and copies take a copy of it.
+  - Auto Rename, in the new Clip List menu, names the clips that Separate, Beat Detective and Strip Silence cut from the picked clips: a name, a number, zeros and a suffix, such as SFX023.Reel1.
+  - The Smart Tool's Trim catches a clip's edge from further in, and the edge moves by as far as you drag instead of jumping to the pointer.
+  - The track height keys (Control+Up and Control+Down) and the Track Height menu keep the selected tracks in the middle of the Edit window.
+- **Sends work like inserts:** drag one to another slot or track, or Option-drag to copy it with its routing, settings and automation. A click on its name opens its Send window, a right-click opens its menu with Mute, Pre-Fader, Follow Main Pan and Rename Bus, and a pre-fader send's selector is blue.
+- **The Track List and the Mix window:** a right-click on a Track List row opens the track's menu, with a new Scroll Into View. A click on a selected track's show/hide dot shows or hides all the selected tracks, and an Option-click every track. In the Mix window, P and ; (with Commands Focus, or with Control) select the next strip left or right, and Shift adds it.
+- **The Clip List and Search:** the Clip List draws only the rows in view, and no longer fills up with Elastic Audio renders that nothing plays. Window › Search lists the last eight commands run from it first, so Return in an empty search runs the last one again.
+- **Imports and long renders:**
+  - File › Import › Audio finds files and plays them before they come in: places with Favorites, a path bar, a search that can look into subfolders, and a waveform to play from with Loop, Auto Play and its own level.
+  - An import that conforms or analyses files, and a Consolidate or Render Clip Gain or Clip Effects of over a minute of stereo, run behind a progress window with Cancel instead of freezing the window.
+- **Faster:** the mix does less work per sample in playback and bounces, so the demo session bounces 23% faster, with the same output to the bit. The Edit window no longer redoes each clip's drawing work every frame.
+- **Unfinished built-in plug-ins are hidden:** the EQs, dynamics, reverbs, delay, modulation and harmonic effects, Channel Strip, Pitch Shifter, Time Shift, Dither and the three instruments leave the insert menus, the AudioSuite menu and Setup › Plug-in Manager until they're finished. Gain, Trim, Invert, Signal Generator and Click stay, AudioSuite keeps its own tools, and sessions that use a hidden one still play it.
+- **Fixes:**
+  - Save Track Preset and the autosave keep changes made in a plug-in window that's still open.
+  - Delete Fades over a selection leaves the crossfades outside it alone, and Heal Separation keeps each half's clip gain and heals across Strip Silence's gaps.
+  - Mute automation switches on its breakpoint, not up to a block late, so playback and bounces agree.
+  - At 29.97 and 59.94 fps a typed timecode reads back as typed and MMC Locate and MTC full-frame cues land on the right frame, and Bounce to MOV at 29.97 no longer repeats a picture on 2 frames in 5.
+  - Locating during playback no longer leaves notes hanging on instruments, and Play no longer stops as it starts on a busy computer.
+  - Commit, Freeze, Track Bounce, ARA renders and Audio to MIDI started during playback stop it and go ahead, instead of being refused or thrown away.
+  - `melodom-cli` refuses options it doesn't know, `--bounce` covers the whole session unless `--start` or `--end` narrows it, and `convert` dithers only when the output has fewer bits than the input.
+
+## 0.9.0 (2026-10-25)
+
+- **ARA plug-ins such as Melodyne, the Pro Tools way:**
+  - Track and Clip menus, and a track name's right-click menu, have a submenu for each ARA plug-in: Edit, Clear, Bypass and Render.
+  - Setup › Preferences › Editing › Double-Clicking on Audio Clip Opens: the Name dialog, the clip's ARA editor or its Clip Effects editor.
+  - View › Clip › ARA Note Overlay shows the notes the plug-in found, and a clip's ARA icon fills while the plug-in analyses it.
+  - Commit, Freeze, Track Bounce, Consolidate, Prepare DPE Tracks, AudioSuite, Render Clip Gain and Clip Effects, and Export Clips as Files all hear the plug-in's edits. While a render runs, ARA windows step aside so no edit lands in it.
+  - `melodom-cli` runs ARA plug-ins too: its bounces and renders hear the edits, and its saves keep them.
+- **Renders and imports on disk:** Commit, Freeze, Consolidate, Render Clip Gain and Clip Effects, AudioSuite and Elastic warps write their audio into files where takes go, and play it from there. Importing audio (File › Import › Audio, dropping files, opening from the Finder) converts on its own thread behind a progress window.
+- **Audio interfaces:** opening the output sets the interface to the session's sample rate, as Pro Tools does. An input on another interface than the output stays in time: macOS joins them in a private aggregate device, as Pro Tools' Aggregate I/O does. JACK is listed while a JACK server runs.
+- **When something fails, Melodom says why:** a launch that fails shows an alert with where the log is, and a plug-in that can't be set up says why in the status line instead of passing its input through silently.
+- **Nothing half-done:** a command that fails leaves nothing of itself behind, a take writer that hits a problem keeps its takes and says so, finished takes are synced to the disk, and a punch that keeps nothing leaves the session untouched.
+- **Steadier mixing:** a plug-in taken out for putting out invalid audio keeps its latency, so delay compensation stays put, and long sessions no longer grow in memory with every fader move.
+- **Smaller downloads:** the app and `melodom-cli` ship without their debug symbols, optimised as a whole.
