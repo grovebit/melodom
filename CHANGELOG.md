@@ -2,6 +2,20 @@
 
 What changed in each Melodom release, newest first. Each release's downloads and checksums are on its page under Releases.
 
+## 0.14.0 (2026-11-11)
+
+- **Melodom starts on the Dashboard,** as Pro Tools does: at launch it's all Melodom shows, in a window of its own size, until you make or open a session; then the window goes back to the size you left it at. Quit (Command+Q) takes Cancel's place, and until then the menus offer only New, Open Session, Dashboard and Quit. File › Close Session brings the Dashboard back too (Preferences › Display › Show Dashboard After Closing a Session), and so does Discard on the offer to recover unsaved work after a crash.
+- **Soundbase and the Workspace, more like Pro Tools:**
+  - A Waveform column, first after Name: each audio file's waveform beside its Preview button. Click in a waveform to play the file from that point, and press Command+Option+] or [ to draw the waveforms taller or back. Melodom reads the waveforms in the background and keeps them, so they show at once the next time.
+  - Advanced Search (Command+Shift+F, or the Advanced button): up to eight rows, each a column, a criterion and what to look for, such as Key Is Am or Tempo Is Greater Than 120. Soundbase opens with Pro Tools Intro's rows (Kind Is Audio File; Key, Time Signature and Loop Is (any); Any Text Column Contains), which narrow the list once you change one or press Return in one. Command+Option-click a column's title to add a row for it, and Shift+Plus and Shift+Minus add a row and take the last one off. With Subfolders on, the folder view's rows look in the folders inside too.
+  - Soundbase lists your Sound Libraries' folders too, after their files, as Pro Tools does.
+  - The search field reads its words as Pro Tools does: words apart find names with any of them, and words in quotes find names with all of them. Import Audio's search works the same way.
+  - The Workspace opens larger, so every column and the Advanced Search rows fit.
+- **What's New** shows only this version's changes. Every release's are in CHANGELOG.md on GitHub.
+- **Changed:** the About window no longer has a Contributors tab.
+- **Fixes:** with Kontakt 8 or another plug-in built with Qt open, a second Melodom no longer appears in the Dock.
+- **For agents and `melodom-cli`:** while the Dashboard is all Melodom shows (a launch from the Finder, or after `session.close`), the control channel and MCP run only `session.new`, `session.open` and `app.quit`; anything else answers that no session is open.
+
 ## 0.13.0 (2026-11-10)
 
 - **Soundbase, after Pro Tools' sample browser:**
