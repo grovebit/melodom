@@ -2,6 +2,26 @@
 
 What changed in each Melodom release, newest first. Each release's downloads and checksums are on its page under Releases.
 
+## 0.15.0 (2026-11-12)
+
+- **Menus look like Pro Tools 2026's:** the menu bar's, right-click and pop-up menus have square corners, even rows with Pro Tools' check mark in a column of its own, thin arrows on submenus, heavier separators and a full-width highlight. In the Light theme they take Pro Tools' Classic greys. A menu opened near the window's edge moves to fit, and a right-click menu taller than the window scrolls. The Edit window's right-click shows ARA Plugins greyed out where it doesn't apply, as Pro Tools does.
+- **File › Import › Audio (Command+Shift+I), laid out like Pro Tools 2026's:**
+  - A sidebar: Favorites (Desktop, Documents, Downloads, Music and your own), the session's folder, Recent, and Locations (your home folder and disks). Right-click a favorite to remove it.
+  - Back and Forward, and a pop-up of the folders the shown one is in, with Choose Folder… and Add to Favorites.
+  - Name, Length, Size, Kind and Date Modified columns. Click a column's title to sort by it, and again to reverse; the sort is remembered.
+  - Pro Tools' options below the list: the file's type, length, size, bit depth, sample rate and channels; Clips in Current File; Add, Add All, Copy and Copy All (Convert and Convert All when a file can't play where it is); Clips to Import, with Remove and Remove All; a Start/End/Length box; the preview's Stop and Play, a position slider, Loop, Auto Play, the meter and the level; and Apply SRC with the file's and the session's sample rates. The waveform, which Pro Tools doesn't show, sits under Clips in Current File: click in it to play from there.
+  - New Folder, Hide Options (remembered), Cancel and Open. Drag the title row to move the dialog; Esc cancels.
+  - The search, Subfolders, files dropped on the dialog, its keys and the choice of where the files go work as before.
+- **Double-clicks go at your Mac's speed** everywhere in Melodom: a slower double-click no longer reads as two clicks, and a double-click soon after a click no longer counts as a triple-click. In the Workspace, that sometimes kept a double-click from opening a folder.
+- **Sound Library locations:**
+  - A folder inside another location can be added as a location of its own. Its files are listed, searched and counted in Soundbase's tags once.
+  - A location whose folder is gone, or on a disk that isn't connected, is listed in red and can be removed.
+  - Add Sound Library Location opens Sound Libraries in the Locations pane, so the new location shows at once.
+  - A Sound Libraries folder whose name ends in a space is no longer misread.
+- **Y moves clips to the current timecode,** as Pro Tools' Move Clip Start To Current Timecode does: the picked clips' start goes to the incoming MIDI Time Code, or to the session start when none comes in, and several clips keep their spacing. Press Y with Commands Keyboard Focus on, or Control+Y with it off. It's one undo step.
+- **Fixes:** inside a selection on an automation lane, the Smart Tool keeps its zones, as in Pro Tools: a drag in the lane's top quarter trims the automation, lower down it makes a new selection, and near a breakpoint it moves that breakpoint. Before, a drag anywhere inside the selection trimmed it.
+- **For agents and `melodom-cli`:** `edit.move_clip_start_to_timecode` moves the picked clips' start to `at`, else to the incoming time code, else to the session start.
+
 ## 0.14.0 (2026-11-11)
 
 - **Melodom starts on the Dashboard,** as Pro Tools does: at launch it's all Melodom shows, in a window of its own size, until you make or open a session; then the window goes back to the size you left it at. Quit (Command+Q) takes Cancel's place, and until then the menus offer only New, Open Session, Dashboard and Quit. File › Close Session brings the Dashboard back too (Preferences › Display › Show Dashboard After Closing a Session), and so does Discard on the offer to recover unsaved work after a crash.
