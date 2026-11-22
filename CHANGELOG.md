@@ -2,6 +2,51 @@
 
 What changed in each Melodom release, newest first. Each release's downloads and checksums are on its page under Releases.
 
+## 0.16.0 (2026-11-22)
+
+- **Clip groups work as Pro Tools' do:**
+  - A group acts as one clip: picking, moving, nudging, shifting or copying any of its clips takes the whole group, and so does a click in its empty space. Group takes the selection's range, across tracks and into empty space, cutting clips at its edges.
+  - It's drawn as one clip across its tracks, with its name and the Clip Group icon. The icon shows audio, MIDI or both, and a break when the group is separated (a track moved between its tracks or away, hidden or deleted); Regroup makes it whole again.
+  - The Trim tool trims a group by its outer edges. Clips past the new edge go out of sight, and come back when the group is trimmed out again.
+  - Groups nest. Group on a selection holding groups makes a group of them; Ungroup takes off the outer layer, Ungroup All every layer, and Regroup puts back what was taken off. Regrouping a group used more than once asks Change All: Modify makes every other use match it, Copy makes it a group of its own.
+  - Rename, Mute, Edit Lock, Time Lock and Quantize to Grid act on the whole group, and Group and Ungroup are on the right-click menu. Separate inside a group makes two groups, as on a clip.
+  - A group has a clip gain level and line of its own, played on top of its clips' own gain. Ungroup takes the group's gain and the fades on its outer edges off, and Regroup puts them back. Tab stops at a group's edges.
+  - A group on tick-based tracks keeps its bars and beats through tempo changes. Playlists view takes a track's groups apart first, as Pro Tools has none there.
+  - The Clip List lists each group with the Clip Group icon: click it to pick the group, or drag it onto a track for a copy. The Clip List menu's Show picks Audio, MIDI, Video and Groups.
+  - File › Import › Clip Groups asks where the groups go, as Pro Tools does: onto new tracks (at the session start, the song start, the selection or where the Spot dialog says) or into the Clip List, and whether to take the file's tempo map. Export Clip Groups… writes a file for each group into the session's Clip Groups folder, and asks about each file that's already there. Clip group files dropped from the Finder or the Workspace land where you drop them.
+  - Clip group files keep the groups' names, nesting and clip gain, and the tempo map. They're Melodom's own files (.scgrp): Pro Tools' .cgrp files don't open.
+- **MIDI to outboard gear, and where an Instrument track's MIDI goes:**
+  - A MIDI track's MIDI Output selector picks a channel of your Mac's MIDI output ports, as in Pro Tools, so the track plays outboard synths in time with what you hear, MIDI Track Offsets included. Muting, soloing, locating, Stop and All MIDI Notes Off end its notes. Ports open when they're plugged in, and a session keeps a port that isn't.
+  - An Instrument track's MIDI Output picks where its MIDI goes: nowhere, a port's channel, its own MIDI Chain (Chain In) or another Instrument track's, or plug-ins on any track's inserts (Individual Targets). Clicking it opens that menu, as in Pro Tools, instead of the instrument. Ports are listed last, as Pro Tools lists its devices.
+  - A MIDI track's fader and pan are MIDI Volume (0 to 127, controller 7) and MIDI Pan (<64 to 63>, controller 10), as in Pro Tools, sent wherever its MIDI goes. The fader follows the clips' own controller events, which the Volume and Pan views show, and automation passes in Touch, Latch and Write write them into the clip under the playhead. Instrument tracks have MIDI Volume and Pan in the Instruments view, and MIDI faders are marked 127, 96, 64, 32 and 0.
+- **The MIDI Keyboard window plays like a keyboard:** Window › MIDI Keyboard is a MIDI device of its own (MIDI Keyboard Window), heard by tracks whose MIDI Input is All, and a held key sounds until you let go. While it's in front, the computer keys play it, as in Pro Tools: A to K and W, E, T, Y and U the notes, Z and X the octave, C and V the velocity, with the letters on its keys. It enters notes only while Step Input is on.
+- **Instruments with more than one output:** an Aux Input's Input selector lists, by track, the outputs past the main one of the session's instruments (CLAP, VST3 and Audio Units), named as the plug-ins name them, as in Pro Tools. The Aux plays that output in time with the buses, and the main output stays on the instrument's track.
+- **Mono and stereo inserts:** on a mono track, the Insert selector lists each plug-in's (mono) version, and its (mono/stereo) version where it has one. From such an insert on, the track is stereo, with two panners, stereo sends and a stereo meter; take the insert off and it's mono again. Commit, Track Bounce and Freeze keep it stereo.
+- **Multi-mono plug-ins:** on a stereo or wider track, the Insert selector offers each effect's (multi-mono) version, built-in or hosted (VST3, Audio Units and CLAP): a mono copy for each channel. Master Link starts on, as in Pro Tools; with it off, the plug-in window's Channel selector shows and edits each channel's own settings, and Link Enable links channels again. A channel bypassed on its own turns the insert purple.
+- **Bounce Mix and Track Bounce:**
+  - Both offer Mono (Summed) and Pad to Frame Boundary, as in Pro Tools, and Bounce Mix writes WAV, AIFF and FLAC at any sample rate.
+  - Bounce Mix's Mix Source lists output paths, buses and physical outputs, with Search, as in Pro Tools. It bounces up to 16 sources at once, a file each named after its source, as Pro Tools Studio and Ultimate do: the plus and minus buttons add and take off rows, and a row's grip drags it.
+- **Takes are recorded at the session's bit depth** (16-bit, 24-bit or 32-bit float), as Broadcast WAVs stamped with where on the session's timecode the recording began, as in Pro Tools. Recovery after a crash repairs them at every depth.
+- **The Smart Tool makes crossfades:** at the bottom of the cut between two touching audio clips the Crossfade cursor shows, and a drag left or right makes a crossfade centred on the cut with the Default Fade Settings, as in Pro Tools.
+- **Option for every track, Option+Shift for the selected ones,** as in Pro Tools, on the Automation Mode selector, on a playlist picked, made or duplicated in the Playlist selector, and on the MIDI Input selector. Option-click on any meter clears every meter, as Option+C and Clear All Clip Indicators now do, peaks included. Control-click on an insert bypasses it and the inserts below it, and on a send mutes it and the sends below it; with Option, on every track.
+- **Insert Time and Cut Time move the tempo and meter rulers with the music,** as in Pro Tools, and playlists not in use follow the moved tempo. MIDI on tick-based tracks lands on its exact tick, so a note at a moved clip's start no longer goes silent.
+- **Setup › Add-ons** lists Melodom's features that Pro Tools doesn't have (the FMOD Studio link, Remote Control, the Import Audio waveform, and note Paste that keeps other pitches), each with a tick. Untick them, or click Pro Tools Only, for Pro Tools alone; sessions keep what they were saved with. Remote Control moved here from Preferences › Operation, keeping your choice.
+- **The Clip List picks several:** Command-click and Shift-click pick several rows, and a drag places them all in one undo step, Top to Bottom from the track you drop on, then on new tracks. Clip List › Timeline Drop Order switches to Left to Right, end to end on one track, as in Pro Tools. Spot spots the first, Audio to MIDI takes them all on an Instrument track, and a refused drop says why.
+- **Smaller changes:**
+  - Menus tick the current choice everywhere.
+  - Bounce… is on the track name menu, and Track Bounce starts in the open session's folder.
+  - A send made through "new track…" opens its Send window.
+  - Import Session Data from a Pro Tools session or an AAF offers only what it brings.
+  - Quantize settings are saved with the session, and Step Input's are kept between launches.
+  - Help › Melodom Guide and Help › Keyboard Shortcuts.
+  - Return closes update notices that only tell you something.
+  - Long Grid and Nudge menus scroll.
+- **Fixes:** plug-in windows' Presets button no longer shows a box where its arrow was. Built-in plug-ins no longer show "-0" for cents, semitones and percentages just below zero. The file name shown while you drag from the Workspace reads in both themes.
+- **For agents and `melodom-cli`:**
+  - `file.bounce_mix` takes a `source` (a bus, an output path or physical outputs) or up to 16 `sources`, a file each, and `file_format: mono_summed`, `sample_rate` and `pad_to_frame`.
+  - Clip groups: `clip.trim_group`, `clip.group_gain_line`, `clip.held_place`, `clip.held_rename` and `clip.held_clear` (groups held in the Clip List), and `change_all` (`modify` or `copy`) on `clip.regroup`.
+  - `mix.midi_volume` and `mix.midi_pan`; `mix.insert_link` for a multi-mono insert's Master Link and Link Enable; `track.view_playlists`.
+
 ## 0.15.0 (2026-11-12)
 
 - **Menus look like Pro Tools 2026's:** the menu bar's, right-click and pop-up menus have square corners, even rows with Pro Tools' check mark in a column of its own, thin arrows on submenus, heavier separators and a full-width highlight. In the Light theme they take Pro Tools' Classic greys. A menu opened near the window's edge moves to fit, and a right-click menu taller than the window scrolls. The Edit window's right-click shows ARA Plugins greyed out where it doesn't apply, as Pro Tools does.
