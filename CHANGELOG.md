@@ -2,6 +2,65 @@
 
 What changed in each Melodom release, newest first. Each release's downloads and checksums are on its page under Releases.
 
+## 0.17.0 (2026-11-25)
+
+- **Sessions open at once while their plug-ins load:**
+  - With Background Plug-in Loading (Setup › Add-ons, ticked from the start), a session's windows and transport answer as soon as it opens, while its plug-ins load behind it in their helper processes. A panel at the lower right counts "Loading plug-ins… n of m" with each plug-in's name.
+  - A track stays silent until its plug-ins are in, so it never plays without its effects. A loading plug-in's window says it's still loading, and changes made meanwhile, a preset included, apply once it's in.
+  - Saving while plug-ins load keeps each loading plug-in's settings exactly as they were. A bounce, or another render that uses playback, started while they load asks you to try again once they're in.
+  - Untick the add-on and opening waits for every plug-in, as in Pro Tools.
+  - Plug-ins also load faster: plug-ins from several makers start and load side by side, the first insert of a plug-in loads it once instead of twice, and a spare plug-in helper is started ahead of time, so the first plug-in from a maker not used yet opens sooner.
+- **Batch Rename, as in Pro Tools 2026.4:**
+  - Batch Track Rename renames the selected tracks: Batch Rename… on the track name menu, or Option+Shift+R. Batch Clip Rename renames the clips and whole files picked in the Clip List: Batch Rename… in the Clip List menu or on a clip's right-click menu, or Control+Shift+R.
+  - The dialog has Pro Tools' sections, applied in its order: Replace (with Clear Existing Name, and Regular Expressions in Pro Tools' replace syntax), Trim, Add (Prefix, Insert At Index, Suffix) and Numbering (Position, Starting Number, Number of Places, Increment, Separate With, Use A..Z). A line under them names the first item's old and new names, or says why OK can't rename. Presets 1 to 5 recall settings (Command-click one to store), and the dialog opens with the settings it had last.
+  - OK renames everything in one undo step, and each track's playlist follows its new name. Track names stay unique: a batch that would give two tracks one name is refused, and the dialog says why.
+  - For clips, Process Order numbers them in Timeline Order or Clip List Sort Order, and Clip and Disk File renames whole files' audio files too (greyed out unless every picked clip is a whole file).
+- **Pinned Tracks, as in Pro Tools:**
+  - Pin, Pin and Replace and Unpin are on the track name menu and a group's menu. Pinned tracks show in the Pinned Tracks pane at the top of the Edit window's track area, in track order, and stay put while the tracks under them scroll.
+  - A pinned row has its own view, height and lanes, and an edit made in the pane happens in the pinned row's view.
+  - The pane fits its tracks until you drag its border. View › Edit Window Views › Pinned Tracks hides it, and Preferences › Display › Pinned Tracks has Auto-Adjust Pinned Area for Tracks, Adjusting Pinned Area Resizes Tracks and While Pinned Set Original Tracks Height To.
+  - The pane's Search shows the pinned tracks as tags (a tag's X unpins it) and finds tracks to pin. Command-Option-click on a group in the Groups list pins its tracks in place of the pinned ones; with Shift, it adds them.
+- **Track › Duplicate copies a folder's tracks:** the dialog has Pro Tools' All Member Tracks, Elastic Audio algorithm and ARA plugin assignment, all ticked to start and remembered. A folder's copy holds copies of its tracks, nested folders too, each taking the dialog's other choices, in one undo step; a copied Routing Folder gets a bus of its own, and the copied tracks go to it. With Elastic Audio algorithm unticked the copy has no Elastic Audio and its clips play unwarped; with ARA plugin assignment unticked it has no ARA plug-in.
+- **Notes view:**
+  - As in Pro Tools, a Command+Option+Control drag up or down on the mini-keyboard scrolls the rows, and so does Command+Option+Control with the wheel over the notes. The keyboard runs the track's full height, without scroll arrows.
+  - Edit › Separate (Command+E) cuts the notes at the Edit cursor or the selection's ends and leaves the clip whole, and Edit › Consolidate (Option+Shift+3) joins the picked notes, or those in the Edit selection, as in Pro Tools.
+  - Notes moved or copied past a MIDI clip's end grow the clip out to the bar line after them, and past its start back to the bar line before them, up to the clips beside it, in Notes view and the MIDI Editor alike, as in Pro Tools. An edit-locked clip keeps its bounds.
+- **The Edit window looks more like Pro Tools':**
+  - A vertical zoom scale beside every track: dB marks on volume and send views and lanes, and amplitude marks for each channel on waveforms. Right-click it for Track Height.
+  - Clip names are labels over the clip, so waveforms, notes, the line between channels, the zoom scale and Notes view's keyboard use the whole track height. Video thumbnails fill the track too.
+  - In Dark, lanes are Pro Tools' lighter grey, each ending in a rim and a rule. Grid lines are lighter and Slip lines darker than the lanes, the selection matches Pro Tools', and automation lines are lighter, to read better.
+  - Edit modes light in Pro Tools' colours, in the Edit window and the MIDI Editor: Shuffle red, Spot amber, Slip green, Grid blue and Relative Grid purple. Snap to Grid's outline is Grid's blue.
+  - Tracks set to a height between Small and Medium pack their header's keys in one row at Pro Tools' sizes, with the Elastic Audio/ARA field on audio tracks and Patch Select on MIDI and Instrument tracks. Pan views mark L, R and the centre, and a stereo track's pan views read "panleft" and "pnrght" on small keys.
+  - Selector names (I/O, sends, groups and automation) are written as in Pro Tools: centred when they fit, else from the left, cut by whole letters with no "…". A long input name no longer loses its first letter.
+  - The Ruler View selector has a check box per ruler, Key and Chords included, in Pro Tools' three groups; Tempo Editor, All Marker Rulers, All and Minimal stay in View › Rulers. The MIDI Editor's ruler menu has check boxes too.
+  - The Tracks list's header has no +, and a Master Fader has no Input selector.
+- **Automation reads as in Pro Tools':** a faint tint in the track's colour under every automation line, Trim included, fainter while suspended, in the Edit window's rows and lanes and the MIDI Editor's lanes. Lines are 2 points wide, and the timeline no longer writes the parameter's name; the view selector and lane headers keep it.
+- **Volume and pan in the Edit window's I/O column:** as in Pro Tools, click a track's volume for a pop-up fader with a level you can type, or its pan for a pan slider, one a side on stereo tracks. A MIDI track's set MIDI Volume and MIDI Pan. Option-click resets and Command-drag moves finely on these, on the plug-in sliders Melodom draws (plug-in windows, Clip Effects and AudioSuite) and on Strip Silence's sliders.
+- **The MIDI Keyboard window:** keys light green while their note sounds, from the pointer or a computer key. While it's open, the computer keys play it whichever window is in front, as in Pro Tools; text fields and dialogs keep their keys, and held notes end when it closes. A held velocity key keeps stepping. It keeps its octave and velocity between launches, and says "MIDI is unavailable" when there's no MIDI system. MIDI and Instrument tracks' Mix strips have Pro Tools' Patch Select button beside the track type, with an icon where the program's name won't fit.
+- **The track name menu is Pro Tools':** its items come in Pro Tools' order and sections, with Melodom's add-ons last. Control-click opens it, and Control-Shift-click scrolls the track into view. Track Height moved to the round arrow left of the name.
+- **Edit-locked clips ask first:** as in Pro Tools, an edit that would change an edit-locked clip asks Cancel or Allow: Separate, Clear, Cut, Paste, trims, Consolidate, Strip Silence, Nudge, clip gain, the Separation Grabber, the TCE Trim tool, Warp and Event markers and loops, and imports and AudioSuite before their work starts. Nudge leaves time-locked clips and the selection where they are, and Separate and Nudge say why when nothing happened.
+- **Melodom says what went wrong:**
+  - A failed command is named by its menu item ("Can't Undo: nothing to undo"), greyed menu items say why on hover, track name and clip menus included, and Undo and Redo name the step they took ("Undid Mute").
+  - Record tries again an input that failed to open; if none opens, a notice that stays says to choose one in Setup › Playback Engine. Input lost to a slow disk, a recording that stopped and a take that couldn't be written leave notices that stay.
+  - A take that heard only silence says Melodom may not have microphone access, and where to allow it. A failed Auto Backup says so once, naming the Backups folder.
+- **The Dashboard:**
+  - Right-click a recent session for Open, Remove from Recent List, Show in Finder and Clear Recent List, as in Pro Tools.
+  - Recent sessions and the New page's location are checked in the background, one path at a time, so a disconnected network drive no longer holds up the list or keeps every row at "checking…".
+  - Session Configuration has Bit Depth (Command+B steps it, as Command+R steps the rate), and new sessions start at the rate and depth you used last.
+  - When a session can't be created, the reason leads with what to do. A failed update check offers Try Again and Open Release Page.
+- **Dialogs and floating windows:** Return presses a dialog's default button only when freshly pressed: not the Return that opened the dialog, not a held key's repeats, and not while a checkbox or pop-up has the focus, where it acts on that control. Recover Unsaved Work is a Pro Tools-style dialog: Return recovers, Not Now keeps the work for next time, and Discard… asks first. Window › Hide All Floating Windows (Control+Option+Command+W) shows again what it hid, as in Pro Tools. Output and Send windows close with it, and when another session opens.
+- **Imported sound starts on time:** sound from M4A and MP4 files and movies started about 44 ms late, with the encoder's padding at its end, and AAC sound in Matroska files about 21 ms late; both now start where they should. A session that still uses an M4A or MP4 file itself as a source (rare: saving turns such files into WAV) opens with those clips' sound that much earlier. A MIDI file with stray bytes after its last track imports, and a damaged one imports what can be read, with a warning that names what was lost and stays until you close it.
+- **Smaller changes:**
+  - The Workspace tags several files in the background, with progress and Cancel, and its Key menu spells keys as the Key column does (C#m, F#m, G#m). Assign Tags leaves alone the session's audio files it reaches after a recording starts.
+  - Strip Silence cuts a playlist in one pass, so long takes with thousands of clips no longer hold up the app.
+  - VST3 plug-ins in /Network/Library/Audio/Plug-Ins/VST3 are found.
+  - Clip Effects' EQ and Dynamics sliders follow their parameters' taper.
+  - Preferences › Operation greys out "Keep N most recent backups" while Auto Backup is off.
+- **Fixes:** AudioSuite on a whole clip, and Elastic Audio, TCE and Warp renders, keep the crossfade with the clip beside it, where it used to dip. Volume, Volume Trim and VCA Master automation is read at every sample, so playback and bounces sound the same at any buffer size. Automating a plug-in between extreme values no longer sends it an infinite value. Crash recovery repairs only takes that are exactly Melodom's own, and exports and saves never write through a link to another file. Damaged audio and movie files can no longer use up memory, and a movie whose path isn't a regular file no longer hangs the video.
+- **For agents and `melodom-cli`:**
+  - `track.batch_rename` and `clip.batch_rename`; `track.pin` (Pin, Pin and Replace, Unpin) and `view.pinned_height`; `track.duplicate` takes `members`, `elastic` and `ara`.
+  - `allow_locked` lets a command change edit-locked clips; `edit.undo` and `edit.redo` reply with the step's `label`; `file.import_midi` replies `skipped` and `summary`; `mix.volume` replies `volumes` and `clamped`; `ui.key` and `ui.click` take `hold` (`down` or `up`).
+
 ## 0.16.0 (2026-11-22)
 
 - **Clip groups work as Pro Tools' do:**
