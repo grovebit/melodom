@@ -2,6 +2,33 @@
 
 What changed in each Melodom release, newest first. Each release's downloads and checksums are on its page under Releases.
 
+## 0.18.0 (2026-11-28)
+
+- **Changes to habits:**
+  - Main-row Command+1–7 pick the tools, and the windows on Command+1–5 moved to the numeric keypad. Clip ratings moved from Command+Option+digit to Command+Control+Option+digit, and Command+Option+1 toggles Commands Focus. In Commands Focus, the main row's `-` toggles the track view instead of nudging.
+  - Tracks made with Track › New… open at Pro Tools' 79-point height, not Medium, and new MIDI and Instrument tracks open in Clips view. Older sessions keep their heights and views.
+  - Continuous and Center Playhead scrolling are hidden, and a selection or edit during playback pauses page scrolling. The saved/modified status moved to the Edit window's foot line, and the Sub Counter shows only with Show Sub Counter in the Main Counter's selector.
+- **Track Markers, as in Pro Tools:**
+  - View › Edit Window Views › Marker Controls gives each track Target, Name/Comment and Add Marker keys; Command+keypad Enter adds a marker to the target.
+  - A track's markers show in a lane under it or in its Markers view, not on the Markers ruler.
+  - Options › Markers Follow Edit (Shift+Y) takes them along with edits and clip moves. Options › Marker Target Follows First Selected Track makes the first selected track the target.
+- **Plug-in knobs stay where you drag them:** in Audio Unit and VST3 plug-in windows, Melodom no longer writes over a parameter while you drag it, so the knob doesn't jump or snap back.
+- **Pro Tools' keys on Input, Output and Send selectors:** Option (every track of that kind) and Option+Shift (the selected tracks) now count from the click that opens the menu, so letting go before you pick no longer changes just one track. Command+Option cascades Input and Output paths across tracks.
+- **Melodom looks more like Pro Tools:**
+  - New tracks start in Pro Tools 2026's track type colours, and clips are coloured the Pro Tools way in Dark and Light. Saved tracks keep their colours.
+  - Controls take Pro Tools' look: pan knobs with a lit dot, green readouts, selector plates, notched fader caps and white names. Audio Mix strips gain the Voice selector, and Instrument and MIDI strips show Patch Select as an icon.
+  - Edit window headers follow the track type. Cursor Location and Cursor Value under the Main Counter show where the pointer is and what's under it.
+- **The MIDI Editor works as in Pro Tools:**
+  - The Track List shows by default, with a Show/Hide button, and a click on a name selects it there.
+  - It edits tracks with no clip, where drawn notes make their own clip, and it shows and makes the Edit selection.
+  - A MIDI OPERATIONS tab beside TRACKS holds the nine MIDI Operations and their settings.
+- **Editing keys:** Control+Tab selects the next clip, Down and Up mark a selection during playback, and held nudge and Tab keys repeat. Control+1–5 recall zoom presets and Control+E is Zoom Toggle. Click the Grid or Nudge digits to type a value. Commands Focus gets its missing keys, and Option or Command with Left or Right auditions the selection's edges.
+- **Editing with the mouse:** dragged clips show where they'll land, with live numbers by the pointer. Control-drag changes only the track, Command suspends the grid, every drag scrolls at the window's edges, and the Grabber selects as you press.
+- **Zooms and page scrolling:** the Zoomer zooms in on the spot you click and draws its box as you drag; Option-click goes back a zoom. Zooms hold the insertion point only while it's on screen, else the window's centre, and the page never turns under a drag.
+- **Smaller changes:** Command+Control+F takes the Fades dialog's last shape; Shift-drag resizes a selection across its tracks; a triple-click selects the whole track; short clips keep room for the Grabber and Selector; crossfades resize across edit groups; Fill Window resets waveform height; shortcuts can use keypad keys; selector tips name their keys.
+- **Fixes:** Option+F, Option+A and Zoom Toggle fill the whole window, and zooming out with the insertion point off screen no longer jumps to the session start. A fade corner dragged back past the clip's edge no longer leaves a 1-sample fade, Edit Window Scrolling ticks its mode, and the MIDI Editor's Track List reads well in Light.
+- **For agents and `melodom-cli`:** new Track Marker, zoom, edge-audition and clip-snap commands (`markers.target`, `markers.add_to_target`, `view.zoom_back`, `transport.play_to_edit_start`, `edit.snap_clip_start_to_play` and others) and `view.show_sub_counter`; `options.markers_follow_edit` and the other marker options now work; `track.input` and `track.output` take `cascade`, and `markers.add` takes `track`.
+
 ## 0.17.0 (2026-11-25)
 
 - **Sessions open at once while their plug-ins load:**
